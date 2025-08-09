@@ -1,0 +1,348 @@
+﻿
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Our Story</title>
+
+    <link type="text/css" rel="stylesheet" href="./index_files/default.css">
+    
+    <script type="text/javascript" src="./index_files/jquery.min.js"></script>
+    <script type="text/javascript" src="./index_files/jscex.min.js"></script>
+    <script type="text/javascript" src="./index_files/jscex-parser.js"></script>
+    <script type="text/javascript" src="./index_files/jscex-jit.js"></script>
+    <script type="text/javascript" src="./index_files/jscex-builderbase.min.js"></script>
+    <script type="text/javascript" src="./index_files/jscex-async.min.js"></script>
+    <script type="text/javascript" src="./index_files/jscex-async-powerpack.min.js"></script>
+    <script type="text/javascript" src="./config.js"></script>
+    <script type="text/javascript" src="./index_files/functions.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./index_files/love.js" charset="utf-8"></script>
+    <style type="text/css">
+        <!--
+        .STYLE1 {
+            color: #666666
+        }
+
+        -->
+    </style>
+</head>
+
+<body> 
+    <!-- ► Music Player -->
+    <div id="music-control">
+        <img
+            id="music-icon"
+            src="./index_files/puppet_heap.jpg"
+            alt="play/pause"
+        >
+        <button id="play-btn">▶</button>
+        <audio id="bg-audio" src="./index_files/Radioactive.mp3" loop></audio>
+    </div>
+    <!-- ─── Sigil → Fullscreen love-photo modal ─── -->
+    <img
+        id="sigil"
+        src="./index_files/scroll.jpg"
+        alt="Open love photo"
+        style="
+            position: fixed;
+            bottom: 340px;
+            right: 137px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10001;
+
+            transition: transform .2s;
+        "
+        onmouseover="this.style.transform='scale(1.1)';"
+        onmouseout=" this.style.transform='scale(1)'; "
+        />
+    <!-- ─── Full-screen modal (leave this exactly as is) ─── -->
+    <div id="sigil-modal" style="display:none">
+        <span id="sigil-close" style="
+            position:absolute;
+            top:20px; right:30px;
+            font-size:48px;
+            color:#fff;
+            cursor:pointer;
+            z-index:20001;
+            "
+        >&times;</span>
+
+        <!-- this is the big photo that pops up -->
+        <img id="sigil-content"
+            src="./index_files/c_i.jpg"
+            alt="Love photo"
+            style="
+                max-width:90%;
+                max-height:90%;
+                border-radius:8px;
+                box-shadow:0 0 20px rgba(255,255,255,0.5);
+            ">
+    </div>
+
+    
+    
+
+    <div id="main">
+        <div id="error">
+            Dear Tanmay, In a season where flowers once bloomed, fallen petals now stand as silent witnesses to the
+            relentless passage of time.
+            How can the years we shared be left to drift away like wisps of smoke?
+            Your once gentle smile remains eternally imprinted in my heart, now a bittersweet memory.
+            Can anyone truly fathom the profound depths of this lingering longing?
+            My dearest treasure, though we may be apart, you are still my only one.
+            Love persists amidst the echoes of our past, a poignant ache that refuses to fade away.
+            Forever loving you, even in the silence of our separation.
+        </div>
+        <div id="wrap">
+            <div id="text">
+                <div id="code">
+                </div>
+            </div>
+            <div id="clock-box">
+                <span id="clock-box-inside-text">
+                </span>
+                <div id="clock"></div>
+            </div>
+            <canvas id="canvas" width="1100" height="680"></canvas>
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+        $('#code').html(config.lines.map(item => {
+            return `<span class="say">${item}</span><br>
+						<span class="say"> </span><br>`
+        }).reduce((a, b) => {
+            return a + b;
+        }))
+        $("#clock-box-inside-text").html(`${config.names[0]}<span class="STYLE1"></span> ${config.names[1]}<span class="STYLE1"></span>`)
+    </script>
+
+    <script>
+        (function () {
+            var canvas = $('#canvas');
+
+            if (!canvas[0].getContext) {
+                $("#error").show();
+                return false;
+            }
+
+            var width = canvas.width();
+            var height = canvas.height();
+
+            canvas.attr("width", width);
+            canvas.attr("height", height);
+
+            var opts = {
+                seed: {
+                    x: width / 2 - 20,
+                    color: "rgb(190, 26, 37)",
+                    scale: 2
+                },
+                branch: [
+                    [535, 680, 570, 250, 500, 200, 30, 100, [
+                        [540, 500, 455, 417, 340, 400, 13, 100, [
+                            [450, 435, 434, 430, 394, 395, 2, 40]
+                        ]],
+                        [550, 445, 600, 356, 680, 345, 12, 100, [
+                            [578, 400, 648, 409, 661, 426, 3, 80]
+                        ]],
+                        [539, 281, 537, 248, 534, 217, 3, 40],
+                        [546, 397, 413, 247, 328, 244, 9, 80, [
+                            [427, 286, 383, 253, 371, 205, 2, 40],
+                            [498, 345, 435, 315, 395, 330, 4, 60]
+                        ]],
+                        [546, 357, 608, 252, 678, 221, 6, 100, [
+                            [590, 293, 646, 277, 648, 271, 2, 80]
+                        ]]
+                    ]]
+                ],
+                bloom: {
+                    num: 700,
+                    width: 1080,
+                    height: 650,
+                },
+                footer: {
+                    width: 1200,
+                    height: 5,
+                    speed: 10,
+                }
+            }
+
+            var tree = new Tree(canvas[0], width, height, opts);
+            var seed = tree.seed;
+            var foot = tree.footer;
+            var hold = 1;
+
+            canvas.click(function (e) {
+                var offset = canvas.offset(),
+                    x,
+
+ y;
+                x = e.pageX - offset.left;
+                y = e.pageY - offset.top;
+                if (seed.hover(x, y)) {
+                    hold = 0;
+                    canvas.unbind("click");
+                    canvas.unbind("mousemove");
+                    canvas.removeClass('hand');
+                }
+            }).mousemove(function (e) {
+                var offset = canvas.offset(),
+                    x, y;
+                x = e.pageX - offset.left;
+                y = e.pageY - offset.top;
+                canvas.toggleClass('hand', seed.hover(x, y));
+            });
+
+            var seedAnimate = eval(Jscex.compile("async", function () {
+                seed.draw();
+                while (hold) {
+                    $await(Jscex.Async.sleep(10));
+                }
+                while (seed.canScale()) {
+                    seed.scale(0.95);
+                    $await(Jscex.Async.sleep(10));
+                }
+                while (seed.canMove()) {
+                    seed.move(0, 2);
+                    foot.draw();
+                    $await(Jscex.Async.sleep(10));
+                }
+            }));
+
+            var growAnimate = eval(Jscex.compile("async", function () {
+                do {
+                    tree.grow();
+                    $await(Jscex.Async.sleep(10));
+                } while (tree.canGrow());
+            }));
+
+            var flowAnimate = eval(Jscex.compile("async", function () {
+                do {
+                    tree.flower(2);
+                    $await(Jscex.Async.sleep(10));
+                } while (tree.canFlower());
+            }));
+
+            var moveAnimate = eval(Jscex.compile("async", function () {
+                tree.snapshot("p1", 240, 0, 610, 680);
+                while (tree.move("p1", 500, 0)) {
+                    foot.draw();
+                    $await(Jscex.Async.sleep(10));
+                }
+                foot.draw();
+                tree.snapshot("p2", 500, 0, 610, 680);
+
+                // 会有闪烁不得意这样做, (＞﹏＜)
+               // canvas.parent().css("background", "url(" + tree.toDataURL('image/png') + ")");
+                var bgShiftY = 60; // how far you shifted the whole scene down
+
+                canvas.parent().css({
+                    backgroundImage: "url(" + tree.toDataURL('image/png') + ")",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "0 " + bgShiftY + "px"
+                });
+                canvas.css("background", "#ffe");
+                $await(Jscex.Async.sleep(300));
+                canvas.css("background", "none");
+
+                // Place the timer on the baked footer line.
+                // Footer line Y = tree.height - foot.height/2, then add the bg shift.
+                // Subtract ~12px so the text sits nicely above the line.
+                var clockTop = Math.round(tree.height - foot.height / 2 + bgShiftY - 12);
+                // $('#clock-box').css('top', clockTop + 'px');
+            }));
+
+            var jumpAnimate = eval(Jscex.compile("async", function () {
+                var ctx = tree.ctx;
+                while (true) {
+                    tree.ctx.clearRect(0, 0, width, height);
+                    tree.jump();
+                    // foot.draw();
+                    $await(Jscex.Async.sleep(25));
+                }
+            }));
+
+            var textAnimate = eval(Jscex.compile("async", function () {
+                var together = new Date(config.date);
+
+                $("#code").show().typewriter();
+                $("#clock-box").fadeIn(500);
+                while (true) {
+                    timeElapse(together);
+                    $await(Jscex.Async.sleep(1000));
+                }
+            }));
+
+            var runAsync = eval(Jscex.compile("async", function () {
+                $await(seedAnimate());
+                $await(growAnimate());
+                $await(flowAnimate());
+                $await(moveAnimate());
+
+                textAnimate().start();
+
+                $await(jumpAnimate());
+            }));
+
+            runAsync().start();
+        })();
+    </script>
+
+
+<script>
+  const audio   = document.getElementById('bg-audio'),
+        icon    = document.getElementById('music-icon'),
+        playBtn = document.getElementById('play-btn');
+
+  function toggleMusic() {
+    if (audio.paused) {
+      audio.play();
+      icon.classList.add('rotateImages');
+      playBtn.textContent = '❚❚';
+    } else {
+      audio.pause();
+      icon.classList.remove('rotateImages');
+      playBtn.textContent = '▶';
+    }
+  }
+
+  icon.addEventListener('click', toggleMusic);
+  playBtn.addEventListener('click', toggleMusic);
+</script>
+
+<script>
+  // Sigil → open modal
+  const sigil     = document.getElementById('sigil'),
+        modal     = document.getElementById('sigil-modal'),
+        closeBtn  = document.getElementById('sigil-close');
+
+  sigil.addEventListener('click', () => {
+    modal.style.display = 'flex';  // use flex so justify/align work
+  });
+
+  closeBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+
+  // Also close if you click outside the image
+  modal.addEventListener('click', e => {
+    if (e.target === modal) modal.style.display = 'none';
+  });
+</script>
+
+
+
+
+</body>
+
+</html>
+
